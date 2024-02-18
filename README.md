@@ -1,2 +1,2 @@
 # Simple_Chat_GRPC
- Hệ thống phân tán sử dụng GRPC
+ Phần mềm chat đơn giản  sử dụng hệ thống phân tán và GRPC
