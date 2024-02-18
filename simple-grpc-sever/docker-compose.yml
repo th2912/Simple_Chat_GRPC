@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  simplegrpcsevermaster:
+    image: simplegrpcsevermaster
+    build:
+      context: .
+      dockerfile: ./Dockerfile

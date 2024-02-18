@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package chatPackage;
+
+message MessagePayload {
+  string username = 1;
+  string msg = 2;
+}
+
+message ChatMessage {
+  string uuid = 1; 
+  string username = 2;
+  string msg = 3;
+  int64 timestamp = 4;
+  int32 like = 5;
+}
+
+message JoinNotification {
+  string uuid = 1; 
+  string username = 2;
+  int64 timestamp = 3;
+}
+
+message LikeMessage {
+  string userSend = 1;
+  ChatMessage message = 2; 
+}
+
+message ChatEvent {
+  oneof event {
+    ChatMessage chatMessage = 1;
+    JoinNotification joinNotification = 2;
+    LikeMessage likeMessage = 3;
+  }
+}
+
+message ResponseEvent {
+  int32 subcode = 1;
+  string message = 2;
+}
+
+message User {
+  string name = 1;
+}
+message Empty {}
+
+message UserList {
+  repeated User users = 1;
+}
+
+message MessageList {
+  repeated ChatMessage msg = 1;
+}
+
+service ChatService {
+  rpc joinRequest(User) returns (ResponseEvent) {}
+
+  rpc likeMessage(LikeMessage) returns (ResponseEvent) {}
+  rpc sendMsg(MessagePayload) returns (ResponseEvent) {}
+  rpc receiveEvent(Empty) returns (stream ChatEvent) {}
+
+  rpc getAllUsers(Empty) returns (UserList) {}
+  rpc getAllMessages(User) returns (MessageList) {}
+
+}
